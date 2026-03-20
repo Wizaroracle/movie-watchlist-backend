@@ -4,14 +4,20 @@ import { connectDB, disconnectDB } from "./config/db.js";
 
 //import routes
 import movieRoutes from "./routes/movieRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 config();
 connectDB();
 const app = express();
 const PORT = 5001;
 
+//Body parsing middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 //API routes
 app.use("/movies", movieRoutes);
+app.use("/auth", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`server is running on http://localhost:${PORT}`);
